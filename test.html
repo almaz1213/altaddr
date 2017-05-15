@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>AltAddrLib test</title>
+</head>
+<body>
+<script src="dist/altaddrlib.min.js"></script>
+<script>
+
+    var version = 0;
+    var altaddrlib = new AltAddrLib(version); //keep the altaddrlib in global scope as a variable name of the AltAddrLib's instance, because of JSONP callback
+    console.log("Starting test");
+    altaddrlib.getAvailAddr("aa://altaddr", function(result) {
+        console.log(result);
+        document.body.insertBefore(document.createElement("P").appendChild(document.createTextNode("Result: " + result)), document.body.childNodes[0]);
+    });
+
+
+
+</script>
+</body>
+</html>

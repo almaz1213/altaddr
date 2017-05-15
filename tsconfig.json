@@ -1,0 +1,21 @@
+{
+  "compilerOptions": {
+    "outDir": "",
+    "sourceMap": true,
+    "declaration": true,
+    "noImplicitAny": false,
+    "moduleResolution": "node",
+    "module": "commonjs",
+    "target": "es5",
+    "jsx": "react",
+    "strictNullChecks": true
+  },
+  "include": [
+    "src/**/*"
+  ],
+  "exclude": [
+    "node_modules",
+    "**/*.spec.ts",
+    "bckp"
+  ]
+}

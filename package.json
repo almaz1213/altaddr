@@ -1,22 +1,30 @@
 {
   "name": "altaddrlib",
-  "version": "0.0.1",
-  "description": "",
-  "main": "index.js",
+  "version": "0.1.1",
+  "description": "Alternative Addresses Library",
+  "main": "dist/altaddrlib.min.js",
+  "module": "src/code/altaddrlib.ts",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "ts-node ./src/code/altaddrlib.ts",
+    "build": "tsc --outDir dist src/code/altaddrlib.ts --module commonjs",
+    "prod": "webpack -p"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/diamo1213/altaddr.git"
   },
   "author": "Almaz Khamatkhanov",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/diamo1213/altaddr/issues"
   },
   "homepage": "https://github.com/diamo1213/altaddr#readme",
   "devDependencies": {
+    "@types/node": "^7.0.18",
+    "node-rsa": "^0.4.2",
+    "ts-loader": "^2.0.3",
+    "typescript": "^2.3.2",
     "webpack": "^2.4.1"
-  }
+  },
+  "dependencies": {}
 }
