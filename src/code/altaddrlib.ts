@@ -157,8 +157,8 @@ export class AltAddrLib {
     }
 
     public jsonpCallback(data:Addr[]){
-        if (typeof data == 'object' && typeof this.tmpFun == 'function'){
-            if (typeof data[0] == "undefined"){
+        if (typeof this.tmpFun == 'function'){
+            if (typeof data !== "object" || typeof data[0] == "undefined"){
                 this.tmpFun(Consts.errList["31"]);
                 this.tmpFun = null;
                 console.error(data);

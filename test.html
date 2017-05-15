@@ -9,11 +9,12 @@
 <script>
 
     var version = 0;
-    var altaddrlib = new AltAddrLib(version); //keep the altaddrlib in global scope as a variable name of the AltAddrLib's instance, because of JSONP callback
+    var altaddrlib = new AltAddrLib(version); //keep the altaddrlib as a variable name of the AltAddrLib's instance and available in global space, because of the library in versions 0.* uses JSONP callback.
     console.log("Starting test");
     altaddrlib.getAvailAddr("aa://altaddr", function(result) {
         console.log(result);
-        document.body.insertBefore(document.createElement("P").appendChild(document.createTextNode("Result: " + JSON.stringify(result))), document.body.childNodes[0]);
+        var res = typeof result == 'object' ? JSON.stringify(result) : result;
+        document.body.insertBefore(document.createElement("P").appendChild(document.createTextNode("Result: " + res)), document.body.childNodes[0]);
     });
 
 

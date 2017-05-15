@@ -63,6 +63,7 @@ getAvailAddr(AltAddrURL, callBack)
 
  - **AltAddrURL** — `string` AltAddr URL in aa: scheme/protocol. Example: "aa://altaddr".
  - **callBack** — Callback function with one argument that takes the `string|object` result. The result parameter may be alternative URL in `string` or object with error info. 
+ - **IMPORTANT!** ***keep the altaddrlib as a variable name of the AltAddrLib's instance and available in global space, because of the library in versions 0.* uses JSONP callback.***
 
 ####**Structure error object**
 ```js
