@@ -13,7 +13,7 @@
     console.log("Starting test");
     altaddrlib.getAvailAddr("aa://altaddr", function(result) {
         console.log(result);
-        document.body.insertBefore(document.createElement("P").appendChild(document.createTextNode("Result: " + result)), document.body.childNodes[0]);
+        document.body.insertBefore(document.createElement("P").appendChild(document.createTextNode("Result: " + JSON.stringify(result))), document.body.childNodes[0]);
     });
 
 
