@@ -1,15 +1,14 @@
 JavaScript Library for resolve **aa://** scheme/protocol
---------------------------------------------------------
 
-----------
 
-##**Introduction**
+##Introduction
 
 **AltAddr** is a decentralized name service that allows bind to one AltAddr URL, like aa://altaddrdomain/, to various classic URLs, like http://domainone.com, https://somedomaintwo/path/?param=val etc.
 
 **AltAddrLib** library provides the first available URL from the list of URLs related to a AltAddr URL.
 
-More info about AltAddr service on [aa://altaddr](aa://altaddr). 
+More info about AltAddr service on [aa://altaddr](aa://altaddr).
+
 ***Install AA extension in browser to open aa:// addresses!***
 
 
@@ -36,7 +35,13 @@ More info about AltAddr service on [aa://altaddr](aa://altaddr).
 ```
 
 ###**Test**
-Download the project and open `test.html` in browser.
+
+
+Download the project and open `test.html` in browser
+
+or
+
+launch it on [http://rawgit.com/diamo1213/altaddr/master/test.html](http://rawgit.com/diamo1213/altaddr/master/test.html)
 
 ###**Load library**
 ```html
@@ -62,12 +67,13 @@ getAvailAddr(AltAddrURL, callBack)
 ####**Structure error object**
 ```js
 error: {
-	num: number,
-	message: string,
-	note?: string
+    num: number,
+    message: string,
+    note?: string
 }
 ```
 ####**Versions**
+
 **0.***
 
 Implemented in http(s) requests to web server
