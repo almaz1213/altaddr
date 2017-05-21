@@ -85,7 +85,7 @@ Use decentralized/distributed data storage without requests to various root web-
 
 ####**Changelog**
 
-**0.2**
+**0.2.***
 
 - Changed constructor initialisation parameter from ```ǹumber``` to ```object: {version: number, requestMethod: string}```, where ```requestMethod: "jsonp" or "xhr"```.
 
