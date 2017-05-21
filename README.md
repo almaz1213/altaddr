@@ -87,7 +87,7 @@ Use decentralized/distributed data storage without requests to various root web-
 
 **0.2.***
 
-- Changed constructor initialisation parameter from ```ǹumber``` to ```object: {version: number, requestMethod: string}```, where ```requestMethod: "jsonp" or "xhr"```.
+- Changed constructor initialisation parameter from `number` to `object: {version: number, requestMethod: string}`, where `requestMethod: "jsonp" or "xhr"`.
 
 - Added XMLHttpRequest (`fetch`) request method.
 
