@@ -8,8 +8,8 @@
 <script src="dist/altaddrlib.min.js"></script>
 <script>
 
-    var version = 0;
-    var altaddrlib = new AltAddrLib(version); //keep the altaddrlib as a variable name of the AltAddrLib's instance and available in global space, because of the library in versions 0.* uses JSONP callback.
+    var initOptions = {version:0, requestMethod:"xhr"};
+    var altaddrlib = new AltAddrLib(initOptions); //keep the altaddrlib as a variable name of the AltAddrLib's instance, when you use requestMethod:"jsonp".
     console.log("Starting test");
     altaddrlib.getAvailAddr("aa://altaddr", function(result) {
         console.log(result);

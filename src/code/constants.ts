@@ -17,6 +17,12 @@ export const errList = {
             "message": "This library works in browsers only. Check updates."
         }
     },
+    "12": {
+        "error": {
+            "num": 12,
+            "message": "Check requestMethod in the initialisation object."
+        }
+    },
     "20": {
         "error": {
             "num": 20,
@@ -30,17 +36,25 @@ export const errList = {
             "note": ""
         }
     },
-        "31": {
-            "error": {
-                "num": 31,
-                "message": "No one URL is set for this AltAddr.",
-                "note": ""
-            }
-        },
+    "31": {
+        "error": {
+            "num": 31,
+            "message": "No one URL is set for this AltAddr.",
+            "note": ""
+        }
+    },
+    "40": {
+        "error": {
+            "num": 40,
+            "message": "Request error",
+            "note" : ""
+        }
+    },
     "0": {
         "error": {
             "num": 0,
-            "message": ""
+            "message": "",
+            "note":""
         }
     }
 };

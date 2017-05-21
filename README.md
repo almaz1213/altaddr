@@ -24,8 +24,8 @@ More info about AltAddr service on [aa://altaddr](aa://altaddr).
 
 <script>
 
-    var version = 0;
-    var altaddrlib = new AltAddrLib(version); //keep the altaddrlib as a variable name of the AltAddrLib's instance, because of JSONP callback 
+    var initOptions = {version:0, requestMethod:"jsonp"};
+    var altaddrlib = new AltAddrLib(initOptions); //keep the altaddrlib as a variable name of the AltAddrLib's instance, when you use requestMethod:"jsonp"
     
     altaddrlib.getAvailAddr("aa://altaddr", function(result) {
         console.log(result);
@@ -49,11 +49,11 @@ launch it on [http://rawgit.com/diamo1213/altaddr/master/test.html](http://rawgi
 ```
 ###**Create instance**
 ```js
-var altaddrlib = new AltAddrLib(version);
+var altaddrlib = new AltAddrLib(initOptions);
 ```
 
  - **AltAddrLib**  —  constructor of the library's main object.
- - **version** — `number` major number of the library's version.
+ - **initOptions** — `{version: number,requestMethod: string}`. `version` — major number of the library's version. `requestMethod` — "jsonp" or "xhr"
 
 ###**Methods**
 
@@ -63,9 +63,9 @@ getAvailAddr(AltAddrURL, callBack)
 
  - **AltAddrURL** — `string` AltAddr URL in aa: scheme/protocol. Example: "aa://altaddr".
  - **callBack** — Callback function with one argument that takes the `string|object` result. The result parameter may be alternative URL in `string` or object with error info. 
- - **IMPORTANT!** ***keep the altaddrlib as a variable name of the AltAddrLib's instance and available in global space, because of the library in versions 0.* uses JSONP callback.***
+ - **IMPORTANT!** keep the altaddrlib as a variable name of the AltAddrLib's instance and available in global space when you use requestMethod == "jsonp", because the library in versions 0.* uses JSONP callback. in that case
 
-####**Structure error object**
+####**Structure of the error object**
 ```js
 error: {
     num: number,
@@ -82,6 +82,15 @@ Implemented in http(s) requests to web server
 **1.*** (future)
 
 Use decentralized/distributed data storage without requests to various root web-servers.
+
+####**Changelog**
+
+**0.2**
+
+- Changed constructor initialisation parameter from ```ǹumber``` to ```object: {version: number, requestMethod: string}```, where ```requestMethod: "jsonp" or "xhr"```.
+
+- Added XMLHttpRequest method.
+
 
 
 

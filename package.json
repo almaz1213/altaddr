@@ -1,13 +1,13 @@
 {
   "name": "altaddrlib",
-  "version": "0.1.1",
+  "version": "0.2.1",
   "description": "Alternative Addresses Library",
   "main": "dist/altaddrlib.min.js",
   "module": "src/code/altaddrlib.ts",
   "scripts": {
     "test": "ts-node ./src/code/altaddrlib.ts",
     "build": "tsc --outDir dist src/code/altaddrlib.ts --module commonjs",
-    "prod": "webpack -p"
+    "prod": "webpack"
   },
   "repository": {
     "type": "git",

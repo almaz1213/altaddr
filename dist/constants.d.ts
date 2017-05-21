@@ -15,6 +15,12 @@ export declare const errList: {
             "message": string;
         };
     };
+    "12": {
+        "error": {
+            "num": number;
+            "message": string;
+        };
+    };
     "20": {
         "error": {
             "num": number;
@@ -35,10 +41,18 @@ export declare const errList: {
             "note": string;
         };
     };
+    "40": {
+        "error": {
+            "num": number;
+            "message": string;
+            "note": string;
+        };
+    };
     "0": {
         "error": {
             "num": number;
             "message": string;
+            "note": string;
         };
     };
 };

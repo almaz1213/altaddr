@@ -21,23 +21,29 @@ export interface Addr {
     "confirmFileName": string
 }
 
+export interface InitOptions {
+    version: number,
+    requestMethod: string //"jsonp" or "xhr"
+}
+
 export class AltAddrLib {
 
+    private initOptions: InitOptions;
 
-    private i:any;
+    private i: any;
 
     private inited: boolean = false;
 
     private rootAddresses: Addr[] = Utils.getRootAddrs('JJ9DBagooQ88IuQl4CDjyc9g9Q3pw3XbdF293U8jEBuLLqTINnt7CwoSsdLrgL7eqwWMsrnJr+2b/WrVBx0+/d6eW0x3vLFHV4oTXkKJcqdxkIQkUfmUl59yJEdymNTxYEgMfMp0t8DyBxAEGKd1Neq/pAVC5IDpr+BRy/80dKHpVA1yFnn2rBQPeEir1IUuDV8nbULJKCSIHremcUjkCd7NuX+4mLooKzZqMA629FEHV0VDXdW9t2JDgmZJwDtWXea6VXE2DOCgse2XFCyaaLWTPDSpb4UVgBS9tR94uXaXFOZTui/s4lXRUaaQbFN46SrG0CpaBlj6y9V9RS5do4hO0aNRrH5+gc0qyvrEc5NaQzY5uvkJm3XbetU/8Ap9wR+OQiaGUWtEvAdEwcUsUeFq0mM6ifDJ2BB5GlIjOyC4oD9/ri9ciS4VSpVgyAYgEIzwjkrrfu5wSTR27tmHw/pqQjuvG84e5UJURQ0fy01G+qQqyLwpfFfPzfvVaAc7s997DLsVFdHfQi4xpeA3PVDa1AO7zU0l/JH8QBT1MXdAf1SisixXeCyBqks9YX/YJARx+Ojjnmt5JmZS4xT/fArhjctVGbWqLBk7puDNxUnyMJC6uiH7x8KfiTaKuFDXGO4RGm1iWV6pTx11fjhF9xNYOyYPO+fuOafFB+0tEfk=');
 
-    private ver: number = Consts.versions[0];
+    private io: InitOptions = {version: 0, requestMethod: "jsonp"};
 
-    private tmpFun:any;
+    private tmpFun: any;
 
-    constructor(ver: number) {
+    constructor(io: InitOptions) {
 
-        if (Consts.versions.indexOf(ver) >= 0) {
-            this.ver = ver;
+        if (Consts.versions.indexOf(io.version) >= 0) {
+            this.io = io;
             this.inited = true;
         }
         else {
@@ -45,7 +51,7 @@ export class AltAddrLib {
             return;
         }
 
-        this.test('');
+        this.test(JSON.stringify(io));
 
         if (typeof window !== 'object') {
             console.error(Consts.errList["11"].error.message);
@@ -54,8 +60,6 @@ export class AltAddrLib {
         else {
             this.i = new Image();
         }
-
-
 
 
     }
@@ -78,7 +82,7 @@ export class AltAddrLib {
         }
         let aa = altAddr.split("/")[2].toLowerCase();
 
-        switch (this.ver) {
+        switch (this.io.version) {
             case 0: {
 
                 this.checkAddrs(this.rootAddresses, 0, (res: string | Err) => {
@@ -86,10 +90,36 @@ export class AltAddrLib {
                     if (typeof res == "object" && "error" in res) {
                         cbResult(res);
                     } else {
-                        var elem = document.createElement("script");
-                        elem.src = encodeURI(res + "/?altaddr=" + aa + "&jsonp=altaddrlib.jsonpCallback");
-                        document.head.appendChild(elem);
-                        this.tmpFun = cbResult;
+                        if (this.io.requestMethod == "jsonp") {
+                            var elem = document.createElement("script");
+                            elem.src = encodeURI(res + "/?altaddr=" + aa + "&jsonp=altaddrlib.jsonpCallback" + "&requestMethod=jsonp");
+                            document.head.appendChild(elem);
+                            this.tmpFun = cbResult;
+                        }
+                        else if (this.io.requestMethod == "xhr") {
+                            /////////////////
+                            fetch(res + "/?altaddr=" + aa + "&requestMethod=xhr", {mode:"cors"})
+                                .then((data: any) => {
+                                    if (typeof data !== "object" || typeof data[0] == "undefined") {
+                                        cbResult(Consts.errList["31"]);
+                                        console.error(data);
+                                        return;
+                                    }
+
+                                    this.checkAddrs(data, 0, (res: string | Err) => {
+                                        cbResult(res);
+                                    });
+                                })
+                                .catch((error) => {
+                                    console.error('L114. Request failed', error);
+                                    let e = Consts.errList["40"];
+                                    e.error.note = error + "";
+                                    cbResult(e);
+                                });
+                        }
+                        else {
+                            return cbResult(Consts.errList["12"]);
+                        }
                     }
                 });
 
@@ -102,11 +132,11 @@ export class AltAddrLib {
     }
 
     /*
-    * Checks availability of the confirmation files for the addresses recursively
-    * @param addrs is array of objects of addresses and confirmation files.
-    * @startIndex index of member of addrs.
-    * @param cbResuult a callback function that is called with parameter - one of the available url or Err object {"error": {"num":number, "message":string, "note":string}}
-    * */
+     * Checks availability of the confirmation files for the addresses recursively
+     * @param addrs is array of objects of addresses and confirmation files.
+     * @startIndex index of member of addrs.
+     * @param cbResuult a callback function that is called with parameter - one of the available url or Err object {"error": {"num":number, "message":string, "note":string}}
+     * */
     private checkAddrs(addrs: Addr[], startIndex: number, cbResult: any) {
 
         if (addrs.length == 0) {
@@ -119,8 +149,8 @@ export class AltAddrLib {
         try {
             oUrl = new URL(addrs[startIndex].url);
         }
-        catch (e){
-            let err:Err = Consts.errList["31"];
+        catch (e) {
+            let err: Err = Consts.errList["31"];
             err.error.note = e;
             cbResult(err);
             return;
@@ -156,16 +186,16 @@ export class AltAddrLib {
 
     }
 
-    public jsonpCallback(data:Addr[]){
-        if (typeof this.tmpFun == 'function'){
-            if (typeof data !== "object" || typeof data[0] == "undefined"){
+    public jsonpCallback(data: Addr[]) {
+        if (typeof this.tmpFun == 'function') {
+            if (typeof data !== "object" || typeof data[0] == "undefined") {
                 this.tmpFun(Consts.errList["31"]);
                 console.error(data);
                 this.tmpFun = null;
                 return;
             }
 
-            this.checkAddrs(data, 0 , (res: string | Err) => {
+            this.checkAddrs(data, 0, (res: string | Err) => {
                 this.tmpFun(res);
                 this.tmpFun = null;
             });
@@ -176,16 +206,16 @@ export class AltAddrLib {
         }
     }
 
-    private test(p:any) {
-        //console.log();
+    private test(p: any) {
+        console.log(p);
     }
 
 
 }
 
 //test by itself
-//let aal = new AltAddrLib(0);
-//aal.getAvailAddr("",(res:string | Err)=>{});
+//let aal = new AltAddrLib({version:0, requestMethod:"xhr"});
+//aal.getAvailAddr("aa://altaddr",(res:string | Err)=>{});
 
 
 
