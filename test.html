@@ -8,7 +8,7 @@
 <script src="dist/altaddrlib.min.js"></script>
 <script>
 
-    var initOptions = {version:0, requestMethod:"xhr"};
+    var initOptions = {version:0, requestMethod:"jsonp"};
     var altaddrlib = new AltAddrLib(initOptions); //keep the altaddrlib as a variable name of the AltAddrLib's instance, when you use requestMethod:"jsonp".
     console.log("Starting test");
     altaddrlib.getAvailAddr("aa://altaddr", function(result) {
