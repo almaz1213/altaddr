@@ -7,7 +7,7 @@
   "scripts": {
     "test": "ts-node ./src/code/altaddrlib.ts",
     "build": "tsc --outDir dist src/code/altaddrlib.ts --module commonjs",
-    "prod": "webpack"
+    "prod": "webpack -p"
   },
   "repository": {
     "type": "git",

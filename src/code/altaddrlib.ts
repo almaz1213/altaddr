@@ -97,8 +97,8 @@ export class AltAddrLib {
                             this.tmpFun = cbResult;
                         }
                         else if (this.io.requestMethod == "xhr") {
-                            /////////////////
                             fetch(res + "/?altaddr=" + aa + "&requestMethod=xhr", {mode:"cors"})
+                                .then((data) => {return data.json()})
                                 .then((data: any) => {
                                     if (typeof data !== "object" || typeof data[0] == "undefined") {
                                         cbResult(Consts.errList["31"]);
