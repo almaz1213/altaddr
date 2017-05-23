@@ -51,7 +51,7 @@ export class AltAddrLib {
             return;
         }
 
-        this.test(JSON.stringify(io));
+        //this.test(JSON.stringify(io));
 
         if (typeof window !== 'object') {
             console.error(Consts.errList["11"].error.message);
