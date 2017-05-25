@@ -1,6 +1,6 @@
 {
   "name": "altaddrlib",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "Alternative Addresses Library",
   "main": "dist/altaddrlib.min.js",
   "module": "src/code/altaddrlib.ts",
