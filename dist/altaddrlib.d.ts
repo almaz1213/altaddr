@@ -23,6 +23,6 @@ export declare class AltAddrLib {
     constructor(io: InitOptions);
     getAvailAddr(altAddr: string, cbResult: any): void;
     private checkAddrs(addrs, startIndex, cbResult);
-    jsonpCallback(data: Addr[]): void;
+    jsonpCallback(data: any): void;
     private test(p);
 }

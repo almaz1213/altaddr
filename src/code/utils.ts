@@ -36,7 +36,7 @@ export function getRootAddrs(Addrs: any, encrypted?: boolean) {
         'GmhkGOzFqlBY/gUjhsUHrZOl\n' +
         '-----END PRIVATE KEY-----';
 
-    let puk = '--deleted--';
+    let puk = '-----deleted-----';
 
     if (encrypted) {
         rsa.importKey(puk, 'pkcs8-public');

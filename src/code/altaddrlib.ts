@@ -100,15 +100,18 @@ export class AltAddrLib {
                             fetch(res + "/?altaddr=" + aa + "&requestMethod=xhr", {mode:"cors"})
                                 .then((data) => {return data.json()})
                                 .then((data: any) => {
-                                    if (typeof data !== "object" || typeof data[0] == "undefined") {
+                                    if (data && data.urls) {
+                                        var urls = Utils.getRootAddrs(data.urls);
+                                        this.checkAddrs(urls, 0, (res: string | Err) => {
+                                            cbResult(res);
+                                        });
+                                    }
+                                    else {
                                         cbResult(Consts.errList["31"]);
                                         console.error(data);
                                         return;
                                     }
 
-                                    this.checkAddrs(data, 0, (res: string | Err) => {
-                                        cbResult(res);
-                                    });
                                 })
                                 .catch((error) => {
                                     console.error('L114. Request failed', error);
@@ -186,19 +189,21 @@ export class AltAddrLib {
 
     }
 
-    public jsonpCallback(data: Addr[]) {
+    public jsonpCallback(data: any) {
         if (typeof this.tmpFun == 'function') {
-            if (typeof data !== "object" || typeof data[0] == "undefined") {
+            if (data && data.urls) {
+                var urls = Utils.getRootAddrs(data.urls);
+                this.checkAddrs(urls, 0, (res: string | Err) => {
+                    this.tmpFun(res);
+                    this.tmpFun = null;
+                });
+
+            }
+            else {
                 this.tmpFun(Consts.errList["31"]);
                 console.error(data);
                 this.tmpFun = null;
-                return;
             }
-
-            this.checkAddrs(data, 0, (res: string | Err) => {
-                this.tmpFun(res);
-                this.tmpFun = null;
-            });
 
         }
         else {
@@ -216,11 +221,4 @@ export class AltAddrLib {
 //test by itself
 //let aal = new AltAddrLib({version:0, requestMethod:"xhr"});
 //aal.getAvailAddr("aa://altaddr",(res:string | Err)=>{});
-
-
-
-
-
-
-
 
